@@ -13,5 +13,8 @@ rows+=' '
 rows+=$(terraform output -json minitwit-swarm-worker-ip-address | jq -r .[])
 
 for ip in $rows; do
-    sed -i "/upstream backend {/a server $ip:8080;" $output_file
+    # For macOS
+    gsed -i "/upstream backend {/a server $ip:8080;" $output_file
+    # For Linux
+    # sed -i "/upstream backend {/a server $ip:8080;" $output_file
 done
