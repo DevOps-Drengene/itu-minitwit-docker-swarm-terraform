@@ -1,10 +1,6 @@
 version: '3.3'
 
-volumes:
-  mysql_data:
-
 services:
-
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -24,20 +20,25 @@ services:
     deploy:
       replicas: 2
 
-  minitwitimage:
-    image: devopsitu/minitwitimage
+  frontend:
+    image: dagandersen/frontend
     ports:
-      - '8080:5000'
+      - '3000:3000'
     deploy:
-      replicas: 10
+      replicas: 2
 
-  itusqlimage:
-    image: devopsitu/itusqlimage
+  custom-api:
+    image: dagandersen/backend
     ports:
-      - '3306:3306'
+      - '5002:5001'
+    command: bash -c '/wait && npm start'
     environment:
-      - MYSQL_ROOT_PASSWORD=megetsikkertkodeord
-    volumes:
-      - mysql_data:/var/lib/mysql
+      - PSQL_DB_NAME=$PSQL_DB_NAME
+      - PSQL_DB_USER_NAME=$PSQL_DB_USER_NAME
+      - PSQL_DB_USER_PASSWORD=$PSQL_DB_USER_PASSWORD
+      - PSQL_HOST_NAME=$PSQL_HOST_NAME
+      - PSQL_HOST_PORT=$PSQL_HOST_PORT
+      - PSQL_SSL_ENABLE=$PSQL_SSL_ENABLE
+      - WAIT_HOSTS=$WAIT_HOSTS
     deploy:
-      replicas: 1
+      replicas: 5
