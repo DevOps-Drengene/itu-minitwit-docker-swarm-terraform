@@ -1,6 +1,7 @@
 secrets
 temp/*
 ssh_key/*
+db-config
 
 # Local .terraform directories
 **/.terraform/*
