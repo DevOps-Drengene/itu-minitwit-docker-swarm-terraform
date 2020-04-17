@@ -1,3 +1,7 @@
+# Create tag for VMs that should have access to production DB
+resource "digitalocean_tag" "production_db_access_tag" {
+  name = "production_vm"
+}
 
 #  _                _
 # | | ___  __ _  __| | ___ _ __
@@ -13,6 +17,8 @@ resource "digitalocean_droplet" "minitwit-swarm-leader" {
   size = "1gb"
   # add public ssh key so we can access the machine
   ssh_keys = [digitalocean_ssh_key.minitwit.fingerprint]
+  # Add DB access tag
+  tags = [digitalocean_tag.production_db_access_tag.id]
 
   # specify a ssh connection
   connection {
@@ -76,6 +82,8 @@ resource "digitalocean_droplet" "minitwit-swarm-manager" {
   size = "1gb"
   # add public ssh key so we can access the machine
   ssh_keys = [digitalocean_ssh_key.minitwit.fingerprint]
+  # Add DB access tag
+  tags = [digitalocean_tag.production_db_access_tag.id]
 
   # specify a ssh connection
   connection {
@@ -129,6 +137,8 @@ resource "digitalocean_droplet" "minitwit-swarm-worker" {
   size = "1gb"
   # add public ssh key so we can access the machine
   ssh_keys = [digitalocean_ssh_key.minitwit.fingerprint]
+  # Add DB access tag
+  tags = [digitalocean_tag.production_db_access_tag.id]
 
   # specify a ssh connection
   connection {
