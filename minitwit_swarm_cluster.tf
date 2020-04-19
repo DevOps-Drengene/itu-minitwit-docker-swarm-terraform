@@ -41,8 +41,8 @@ resource "digitalocean_droplet" "minitwit-swarm-leader" {
       "ufw allow 7946",
       "ufw allow 4789/udp",
       # ports for apps
-      "ufw allow 80",
-      "ufw allow 8080",
+      "ufw allow 3000",
+      "ufw allow 5002",
       "ufw allow 8888",
 
       # initialize docker swarm cluster

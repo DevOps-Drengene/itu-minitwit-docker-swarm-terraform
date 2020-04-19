@@ -14,7 +14,7 @@ rows+=$(terraform output -json minitwit-swarm-worker-ip-address | jq -r .[])
 
 for ip in $rows; do
     # For macOS
-    gsed -i "/upstream backend {/a server $ip:3000;" $output_file
+    gsed -i "/upstream backend {/a server $ip:3000;\n server $ip:5002;" $output_file
     # For Linux
     # sed -i "/upstream backend {/a server $ip:8080;" $output_file
 done
