@@ -129,7 +129,7 @@ resource "digitalocean_droplet" "minitwit-swarm-worker" {
   depends_on = [digitalocean_droplet.minitwit-swarm-leader]
 
   # number of vms to create
-  count = 3
+  count = 2
 
   image = "docker-18-04"
   name = "minitwit-swarm-worker-${count.index}"
